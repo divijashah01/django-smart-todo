@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects - DoIt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Guava color palette */
+            --primary: #FF8559;     /* Coral color */
+            --primary-light: #FFB578; /* Peach color */
+            --secondary: #E65447;   /* Red color */
+            --accent: #CF5376;      /* Pink/Purple color */
+            --dark: #2D3748;
+            --light: #FFFDFA;
+            --neutral: #FFF6F0;
+            --success: #63D2A1;
+            --warning: #FFD166;
+            --subtle: rgba(255, 133, 89, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image: radial-gradient(var(--subtle) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Revolutionary Navbar Styling */
+        .navbar-container {
+            padding: 20px 40px;
+            position: relative;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(255, 133, 89, 0.1), 
+                        0 2px 10px rgba(0, 0, 0, 0.03),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.7);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+            overflow: hidden;
+            height: 70px;
+        }
+        
+        .logo-container {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            height: 100%;
+            width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 24px;
+            box-shadow: 0 0 20px rgba(255, 133, 89, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            top: -30px;
+            right: -20px;
+        }
+        
+        .logo-container::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            bottom: -10px;
+            left: 20px;
+        }
+        
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        
+        .logo-icon {
+            color: white;
+            font-size: 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: calc(100% - 180px);
+            padding: 0 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            height: 100%;
+            margin-left: 20px;
+            gap: 5px;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+            background-color: var(--subtle);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+            font-weight: 600;
+            background-color: var(--subtle);
+        }
+        
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .nav-link i {
+            font-size: 14px;
+            
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-greeting {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            color: var(--dark);
+            opacity: 0.6;
+            border: 1px solid rgba(45, 55, 72, 0.2);
+            border-radius: 12px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logout-btn:hover {
+            opacity: 1;
+            background: rgba(255, 133, 89, 0.1);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+        
+        /* Container Styling */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+        }
+        
+        /* Enhanced Subjects Header Styling */
+        .subjects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 133, 89, 0.15);
+        }
+        
+        .subjects-header h1 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 36px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .subjects-header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            border-radius: 2px;
+        }
+        
+        .add-subject-btn, .add-task-btn {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(255, 133, 89, 0.15);
+        }
+        
+        .add-subject-btn:hover, .add-task-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 133, 89, 0.25);
+        }
+        
+        .add-subject-btn span, .add-task-btn span {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        /* Subject Grid Styling */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .subject-card {
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(255, 133, 89, 0.08), 
+                        0 5px 15px rgba(0, 0, 0, 0.03);
+            padding: 25px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 133, 89, 0.1), 
+                        0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .subject-title {
+            color: var(--dark);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        
+        .subject-task-count {
+            background-color: var(--neutral);
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 10px;
+            margin-right: 35px;
+        }
+        
+        .subject-actions {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background-color: transparent;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--subtle);
+            transform: scale(1.1);
+        }
+        
+        .delete-subject-btn:hover {
+            color: var(--secondary);
+        }
+        
+        .subject-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .subject-task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .subject-task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background-color: var(--neutral);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(45, 55, 72, 0.03);
+        }
+        
+        .subject-task-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 133, 89, 0.15);
+            border-color: rgba(255, 133, 89, 0.1);
+        }
+        
+        .task-content {
+            flex-grow: 1;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            font-size: 16px;
+        }
+        
+        .scratch-line {
+            position: absolute;
+            height: 2px;
+            background-color: var(--success);
+            top: 50%;
+            left: 0;
+            width: 0;
+            transition: width 0.5s ease-out;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .subject-task-item.completed .scratch-line {
+            width: 100%;
+        }
+        
+        .task-time {
+            font-size: 13px;
+            color: var(--dark);
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .task-time span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .task-time span::before {
+            content: '\f017';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--secondary);
+            font-size: 12px;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .view-notes-btn,
+        .edit-task-btn,
+        .delete-task-btn {
+            background-color: white;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(45, 55, 72, 0.05);
+        }
+        
+        .view-notes-btn:hover,
+        .edit-task-btn:hover,
+        .delete-task-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 55, 72, 0.1);
+        }
+        
+        .view-notes-btn:hover {
+            color: var(--primary);
+        }
+        
+        .edit-task-btn:hover {
+            color: var(--accent);
+        }
+        
+        .delete-task-btn:hover {
+            color: var(--secondary);
+        }
+        
+        /* Enhanced Add Task Button */
+        .add-task-btn {
+            margin-top: auto;
+            justify-content: center;
+        }
+        
+        /* Styling for completed tasks - ENHANCED */
+        .subject-task-item.completed {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(99, 210, 161, 0.1);
+            opacity: 0.6;
+        }
+        
+        .subject-task-item.completed:hover {
+            transform: none;
+            box-shadow: 0 4px 10px rgba(45, 55, 72, 0.03);
+        }
+        
+        .subject-task-item.completed .task-title {
+            color: var(--dark);
+            opacity: 0.5;
+        }
+        
+        .subject-task-item.completed .task-time {
+            opacity: 0.5;
+        }
+        
+        .subject-task-item.completed .task-actions button {
+            opacity: 0.5;
+        }
+        
+        /* Styling for overdue tasks */
+        .subject-task-item.overdue {
+            border: 2px solid rgba(230, 84, 71, 0.2);
+        }
+        
+        .subject-task-item.overdue .task-title {
+            color: var(--secondary);
+        }
+        
+        /* No Subjects Styling */
+        .no-subjects {
+            text-align: center;
+            padding: 60px 0;
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(255, 133, 89, 0.08), 
+                        0 5px 15px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .no-subjects h2 {
+            color: var(--dark);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .no-subjects p {
+            color: var(--dark);
+            font-size: 16px;
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+        
+        /* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(45, 55, 72, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(255, 133, 89, 0.2), 
+                0 10px 20px rgba(0, 0, 0, 0.05);
+    width: 500px;
+    max-width: 90%;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: linear-gradient(45deg, var(--primary-light), var(--primary));
+    color: white;
+    position: relative;
+}
+
+.modal-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+.subject-name-display {
+    color: white;
+    font-size: 14px;
+    margin: 5px 10px 0px 0;
+    opacity: 0.9;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+form {
+    padding: 30px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(45, 55, 72, 0.1);
+    border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 133, 89, 0.2);
+}
+
+/* Updated color palette to match theme */
+.color-picker {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Updated color palette options to match theme */
+.color-picker .color-option:nth-child(1) {
+    background-color: #FF8559; /* Primary color */
+}
+
+.color-picker .color-option:nth-child(2) {
+    background-color: #FF6356; /* Secondary color */
+}
+
+.color-picker .color-option:nth-child(3) {
+    background-color: #FFB347; /* Orange variant */
+}
+
+.color-picker .color-option:nth-child(4) {
+    background-color: #63D2A1; /* Green accent */
+}
+
+.color-picker .color-option:nth-child(5) {
+    background-color: #5CADFF; /* Blue accent */
+}
+
+.color-picker .color-option:nth-child(6) {
+    background-color: #B19CD9; /* Purple accent */
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.cancel-btn {
+    padding: 10px 20px;
+    border: 1px solid rgba(45, 55, 72, 0.1);
+    background-color: white;
+    color: var(--dark);
+    border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+    border-color: var(--dark);
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    border: none;
+    background: linear-gradient(45deg, var(--primary), var(--primary-light));
+    color: white;
+    border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 133, 89, 0.15);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 133, 89, 0.25);
+}
+
+.delete-btn {
+    background: linear-gradient(45deg, var(--secondary), #FF6356);
+    box-shadow: 0 5px 15px rgba(230, 84, 71, 0.15);
+}
+
+.delete-btn:hover {
+    box-shadow: 0 8px 20px rgba(230, 84, 71, 0.25);
+}
+
+.delete-confirm {
+    text-align: center;
+    padding: 10px 30px 20px;
+}
+
+.delete-confirm p {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-size: 16px;
+}
+
+.notes-content {
+    background-color: var(--neutral);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 0 30px 20px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+/* Ensure media queries are preserved */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-buttons {
+        flex-direction: column;
+    }
+    
+    .cancel-btn, .submit-btn {
+        width: 100%;
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+    </style>
+</head>
+<body>
+    <div class="navbar-container">
+        <nav class="navbar">
+            <div class="logo-container">
+                <div class="logo"><i class="fas fa-check-circle logo-icon"></i>DoIt</div>
+            </div>
+            <div class="nav-container">
+                <div class="nav-links">
+                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="{% url 'subjects' %}" class="nav-link active"><i class="fas fa-book"></i> Subjects</a>
+                    <a href="{% url 'calendar' %}" class="nav-link"><i class="fas fa-calendar-alt"></i> Calendar</a>
+                    <a href="{% url 'statistics' %}" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+                </div>
+                <div class="user-menu">
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="subjects-header">
+            <h1>Your Subjects</h1>
+            <div style="display: flex; gap: 15px;">
+                <!-- NEW AUDIO BUTTON -->
+                <button id="audio-task-button" class="add-subject-btn" style="background: linear-gradient(45deg, var(--accent), #e879f9);">
+                    <i class="fas fa-microphone" style="font-size: 18px;"></i> Add via Audio
+                </button>
+                <button id="add-subject-button" class="add-subject-btn">
+                    <span>+</span> Add Subject
+                </button>
+            </div>
+        </div>
+
+        {% if subjects %}
+        <div class="subject-grid">
+            {% for subject in subjects %}
+            <div class="subject-card" style="border-top: 5px solid {{ subject.color }};">
+                <div class="subject-header">
+                    <div class="subject-title">{{ subject.name }}</div>
+                    <div class="subject-task-count">
+                        {{ subject.pending_count }} pending
+                    </div>
+                </div>
+                <div class="subject-actions">
+                    <button class="action-btn delete-subject-btn" data-subject-id="{{ subject.id }}">🗑️</button>
+                </div>
+                <div class="subject-content">
+                    <ul class="subject-task-list">
+                        {% with all_tasks=subject.sorted_tasks %}
+                            {% for task in all_tasks|slice:":3" %}
+                            <li class="subject-task-item {% if task.completed %}completed{% endif %} {% if task.due_date < today and not task.completed %}overdue{% endif %}" data-task-id="{{ task.id }}">
+                                <div class="task-content">
+                                    <div class="task-title">
+                                        {{ task.title }}
+                                        <div class="scratch-line"></div>
+                                    </div>
+                                    <div class="task-time">
+                                        <span>Due: {{ task.due_date|date:"M d" }} at {{task.due_time|time:"g:i A" }}</span>
+                                        {% if task.ideal_time %}
+                                        <span>Ideal: {{ task.ideal_time|time:"g:i A" }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="task-actions">
+                                    {% if task.notes %}
+                                    <button class="view-notes-btn" data-task-id="{{ task.id }}" data-notes="{{ task.notes }}" title="View Notes">📝</button>
+                                    {% endif %}
+                                    <button class="edit-task-btn" data-task-id="{{ task.id }}" 
+                                        data-title="{{ task.title }}"
+                                        data-due-date="{{ task.due_date|date:'Y-m-d' }}" 
+                                        data-due-time="{{ task.due_time|time:'H:i' }}"
+                                        data-ideal-time="{% if task.ideal_time %}{{ task.ideal_time|time:'H:i' }}{% endif %}"
+                                        data-notes="{{ task.notes }}">✏️</button>
+
+                                    <button class="delete-task-btn" data-task-id="{{ task.id }}" title="Delete Task">🗑️</button>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        {% endwith %}
+                    </ul>
+                    <button class="add-task-btn" data-subject-id="{{ subject.id }}">+ Add Task</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-subjects">
+            <h2>No Subjects Yet</h2>
+            <p>Create your first subject to start organizing your tasks!</p>
+            <button id="first-subject-button" class="add-subject-btn" style="margin: 0 auto;">
+                <span>+</span> Create First Subject
+            </button>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Add Subject Modal -->
+    <div id="add-subject-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Subject</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form action="{% url 'add_subject' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="subject-name">Subject Name</label>
+                    <input type="text" id="subject-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <div class="color-picker">
+                        <div class="color-option selected" style="background-color: #ffb3ba;" data-color="#ffb3ba"></div>
+                        <div class="color-option" style="background-color: #ffdfba;" data-color="#ffdfba"></div>
+                        <div class="color-option" style="background-color: #ffffba;" data-color="#ffffba"></div>
+                        <div class="color-option" style="background-color: #baffc9;" data-color="#baffc9"></div>
+                        <div class="color-option" style="background-color: #bae1ff;" data-color="#bae1ff"></div>
+                        <div class="color-option" style="background-color: #b19cd9;" data-color="#b19cd9"></div>
+                        <input type="hidden" id="selected-color" name="color" value="#ffb3ba">
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn close-modal-btn">Cancel</button>
+                    <button type="submit" class="submit-btn">Create Subject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="add-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Task</h3>
+                <p class="subject-name-display">Subject: <span id="subject-name-display">-</span></p>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form action="{% url 'add_task' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="subject-id" name="subject_id" value="">
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="due-date">Due Date</label>
+                    <input type="date" id="due-date" name="due_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="due-time">Due Time</label>
+                    <input type="time" id="due-time" name="due_time" required>
+                </div>
+                <div class="form-group">
+                    <label for="ideal-time">Ideal Finish Time (Optional)</label>
+                    <input type="time" id="ideal-time" name="ideal_time">
+                </div>
+                <div class="form-group">
+                    <label for="task-notes">Notes (Optional)</label>
+                    <textarea id="task-notes" name="notes" rows="3"></textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn close-modal-btn">Cancel</button>
+                    <button type="submit" class="submit-btn">Add Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Task</h3>
+                <p class="subject-name-display">Subject: <span id="edit-subject-name-display">-</span></p>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form action="{% url 'edit_task' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="edit-task-id" name="task_id" value="">
+                <div class="form-group">
+                    <label for="edit-task-title">Task Title</label>
+                    <input type="text" id="edit-task-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-due-date">Due Date</label>
+                    <input type="date" id="edit-due-date" name="due_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-due-time">Due Time</label>
+                    <input type="time" id="edit-due-time" name="due_time" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-ideal-time">Ideal Finish Time (Optional)</label>
+                    <input type="time" id="edit-ideal-time" name="ideal_time">
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-notes">Notes (Optional)</label>
+                    <textarea id="edit-task-notes" name="notes" rows="3"></textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn close-modal-btn">Cancel</button>
+                    <button type="submit" class="submit-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Task Confirmation Modal -->
+    <div id="delete-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Task</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="delete-confirm">
+                <p>Are you sure you want to delete this task?</p>
+                <form action="{% url 'delete_task' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="delete-task-id" name="task_id">
+                    <div class="form-buttons">
+                        <button type="button" class="cancel-btn close-modal-btn">Cancel</button>
+                        <button type="submit" class="submit-btn delete-btn">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Notes Modal -->
+    <div id="view-notes-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Task Notes</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="notes-content">
+                <p id="task-notes-content"></p>
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Subject Confirmation Modal -->
+    <div id="delete-subject-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Subject</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="delete-confirm">
+                <p>Are you sure you want to delete this subject? All tasks associated with this subject will also be deleted.</p>
+                <form action="{% url 'delete_subject' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="delete-subject-id" name="subject_id">
+                    <div class="form-buttons">
+                        <button type="button" class="cancel-btn close-modal-btn">Cancel</button>
+                        <button type="submit" class="submit-btn delete-btn">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO RECORDING MODAL -->
+    <div id="recording-modal" class="modal">
+        <div class="modal-content" style="width: 400px; text-align: center; padding: 40px;">
+            <h3 class="modal-title" style="color: var(--dark);">Recording...</h3>
+            <p style="color: var(--dark); margin: 15px 0;">Speak your task command now.</p>
+            <i class="fas fa-microphone-alt" style="color: var(--secondary); font-size: 50px; animation: pulse 1.5s infinite;"></i>
+            <button id="stop-recording-button" class="submit-btn delete-btn" style="margin-top: 30px;">Stop Recording</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add Subject Modal
+            const addSubjectButtons = document.querySelectorAll('#add-subject-button, #first-subject-button');
+            const addSubjectModal = document.getElementById('add-subject-modal');
+            
+            addSubjectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    addSubjectModal.classList.add('active');
+                });
+            });
+            
+            // Add Task Modal
+            const addTaskButtons = document.querySelectorAll('.add-task-btn');
+            const addTaskModal = document.getElementById('add-task-modal');
+            const subjectIdInput = document.getElementById('subject-id');
+            
+            addTaskButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const subjectId = this.getAttribute('data-subject-id');
+                    const subjectName = this.closest('.subject-card').querySelector('.subject-title').textContent;
+
+                    subjectIdInput.value = subjectId;
+                    document.getElementById('subject-name-display').textContent = subjectName;
+                    addTaskModal.classList.add('active');
+                });
+            });
+            
+            // Delete Subject Modal
+            const deleteSubjectButtons = document.querySelectorAll('.delete-subject-btn');
+            const deleteSubjectModal = document.getElementById('delete-subject-modal');
+            const deleteSubjectIdInput = document.getElementById('delete-subject-id');
+            
+            deleteSubjectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const subjectId = this.getAttribute('data-subject-id');
+                    deleteSubjectIdInput.value = subjectId;
+                    deleteSubjectModal.classList.add('active');
+                });
+            });
+            
+            // Close Modals
+            const closeButtons = document.querySelectorAll('.close-modal, .close-modal-btn');
+            const modals = document.querySelectorAll('.modal');
+            
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    modals.forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                });
+            });
+            
+            // Update the color picker section in your JavaScript
+            const colorOptions = document.querySelectorAll('.color-option');
+            const selectedColorInput = document.getElementById('selected-color');
+
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    colorOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update the hidden input value
+                    const color = this.getAttribute('data-color');
+                    selectedColorInput.value = color;
+                });
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                modals.forEach(modal => {
+                    if (event.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+
+            // Edit Task Modal
+            const editTaskButtons = document.querySelectorAll('.edit-task-btn');
+            const editTaskModal = document.getElementById('edit-task-modal');
+            const editTaskIdInput = document.getElementById('edit-task-id');
+            const editTaskTitle = document.getElementById('edit-task-title');
+            const editDueDate = document.getElementById('edit-due-date');
+            const editDueTime = document.getElementById('edit-due-time');
+            const editIdealTime = document.getElementById('edit-ideal-time');
+            const editTaskNotes = document.getElementById('edit-task-notes');
+
+            document.querySelectorAll('.edit-task-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const taskId = this.getAttribute('data-task-id');
+                    const title = this.getAttribute('data-title');
+                    const dueDate = this.getAttribute('data-due-date');
+                    const dueTime = this.getAttribute('data-due-time');
+                    const idealTime = this.getAttribute('data-ideal-time');
+                    const notes = this.getAttribute('data-notes');
+                    const subjectName = this.closest('.subject-card').querySelector('.subject-title').textContent;
+                    
+                    document.getElementById('edit-task-id').value = taskId;
+                    document.getElementById('edit-task-title').value = title;
+                    document.getElementById('edit-due-date').value = dueDate;
+                    document.getElementById('edit-due-time').value = dueTime;
+                    document.getElementById('edit-ideal-time').value = idealTime || '';
+                    document.getElementById('edit-task-notes').value = notes || '';
+                    document.getElementById('edit-subject-name-display').textContent = subjectName;
+                    
+                    document.getElementById('edit-task-modal').classList.add('active');
+                });
+            });
+
+            // View Notes Modal
+            const viewNotesButtons = document.querySelectorAll('.view-notes-btn');
+            const viewNotesModal = document.getElementById('view-notes-modal');
+            const taskNotesContent = document.getElementById('task-notes-content');
+
+            document.querySelectorAll('.view-notes-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const notes = this.getAttribute('data-notes');
+                    document.getElementById('task-notes-content').textContent = notes;
+                    
+                    document.getElementById('view-notes-modal').classList.add('active');
+                });
+            });
+
+            // Delete Task Modal
+            const deleteTaskButtons = document.querySelectorAll('.delete-task-btn');
+            const deleteTaskModal = document.getElementById('delete-task-modal');
+            const deleteTaskIdInput = document.getElementById('delete-task-id');
+
+            document.querySelectorAll('.delete-task-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const taskId = this.getAttribute('data-task-id');
+                    document.getElementById('delete-task-id').value = taskId;
+                    document.getElementById('delete-task-modal').classList.add('active');
+                });
+            });
+            
+            // Set today as minimum date for due date
+            const dueDateInput = document.getElementById('due-date');
+            const today = new Date().toISOString().split('T')[0];
+            dueDateInput.min = today;
+
+            const editDueDateInput = document.getElementById('edit-due-date');
+            editDueDateInput.min = today;
+
+            // Initial check for completed items to ensure scratch line is visible
+            document.querySelectorAll('.subject-task-item.completed').forEach(item => {
+                const scratchLine = item.querySelector('.scratch-line');
+                if (scratchLine) {
+                    scratchLine.style.width = '100%';
+                }
+            });
+            
+            // Sort tasks in each subject card to move completed ones to the bottom
+            document.querySelectorAll('.subject-task-list').forEach(list => {
+                const items = Array.from(list.querySelectorAll('.subject-task-item'));
+                const completed = items.filter(item => item.classList.contains('completed'));
+                const active = items.filter(item => !item.classList.contains('completed'));
+                
+                // Clear the list
+                while (list.firstChild) {
+                    list.removeChild(list.firstChild);
+                }
+                
+                // Add active tasks first, then completed
+                active.forEach(item => list.appendChild(item));
+                completed.forEach(item => list.appendChild(item));
+            });
+
+            // --- NEW: Audio Task Feature Logic ---
+            const audioTaskButton = document.getElementById('audio-task-button');
+            const recordingModal = document.getElementById('recording-modal');
+            const stopRecordingButton = document.getElementById('stop-recording-button');
+            //const addTaskModal = document.getElementById('add-task-modal');
+            
+            let mediaRecorder;
+            let audioChunks = [];
+
+            // 1. Start Recording
+            audioTaskButton.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = sendAudioForTranscription;
+
+                    audioChunks = [];
+                    mediaRecorder.start();
+                    recordingModal.classList.add('active');
+
+                } catch (err) {
+                    alert('Microphone access was denied. Please allow microphone access in your browser settings.');
+                    console.error("Error accessing microphone:", err);
+                }
+            });
+
+            // 2. Stop Recording
+            stopRecordingButton.addEventListener('click', () => {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                    recordingModal.classList.remove('active');
+                    // Stop microphone track to turn off browser's recording indicator
+                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                }
+            });
+
+            // 3. Send Audio to Django Backend
+            async function sendAudioForTranscription() {
+                if (audioChunks.length === 0) return;
+
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const formData = new FormData();
+                formData.append('audio_data', audioBlob, 'recording.webm');
+
+                // Show a temporary "processing" message
+                alert('Processing your command...');
+
+                try {
+                    const response = await fetch("{% url 'transcribe_task' %}", {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // 4. Populate the Add Task Modal (Confirmation Step)
+                        populateAddTaskModal(result.data);
+                    } else {
+                        alert(`Error: ${result.error}`);
+                    }
+                } catch (error) {
+                    alert('An error occurred while processing the audio.');
+                    console.error('Transcription error:', error);
+                }
+            }
+
+            // 5. Helper function to populate and open the modal
+            function populateAddTaskModal(data) {
+                let subjectId = null;
+                let subjectName = "General"; // Default if not found
+
+                // Find the subject ID based on the parsed name
+                if (data.subject_name) {
+                    const subjectCard = Array.from(document.querySelectorAll('.subject-card')).find(card => {
+                        return card.querySelector('.subject-title').textContent.trim().toLowerCase() === data.subject_name.toLowerCase();
+                    });
+                    if (subjectCard) {
+                        subjectId = subjectCard.querySelector('.add-task-btn').getAttribute('data-subject-id');
+                        subjectName = subjectCard.querySelector('.subject-title').textContent;
+                    } else {
+                        alert(`Could not find a subject named "${data.subject_name}". The task will be added without a subject. Please select one manually.`);
+                        // Find the first subject as a fallback
+                        const firstSubjectButton = document.querySelector('.add-task-btn');
+                        if (firstSubjectButton) {
+                            subjectId = firstSubjectButton.getAttribute('data-subject-id');
+                            subjectName = firstSubjectButton.closest('.subject-card').querySelector('.subject-title').textContent;
+                        }
+                    }
+                } else {
+                    // If no subject was mentioned, assign to the first subject on the page
+                    const firstSubjectButton = document.querySelector('.add-task-btn');
+                    if (firstSubjectButton) {
+                        subjectId = firstSubjectButton.getAttribute('data-subject-id');
+                        subjectName = firstSubjectButton.closest('.subject-card').querySelector('.subject-title').textContent;
+                    } else {
+                        alert("No subjects found to add the task to. Please create a subject first.");
+                        return;
+                    }
+                }
+
+                // Populate the modal fields
+                document.getElementById('subject-id').value = subjectId;
+                document.getElementById('subject-name-display').textContent = subjectName;
+                document.getElementById('task-title').value = data.title || '';
+                document.getElementById('due-date').value = data.due_date || '';
+                document.getElementById('due-time').value = data.due_time || '';
+                document.getElementById('task-notes').value = ''; // Clear notes
+                document.getElementById('ideal-time').value = ''; // Clear ideal time
+
+                // Open the modal for confirmation and editing
+                addTaskModal.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

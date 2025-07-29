@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - DoIt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Matching the DoIt color palette */
+            --primary: #FF8559;     /* Coral color */
+            --primary-light: #FFB578; /* Peach color */
+            --secondary: #E65447;   /* Red color */
+            --accent: #CF5376;      /* Pink/Purple color */
+            --dark: #2D3748;
+            --light: #FFFDFA;
+            --neutral: #FFF6F0;
+            --subtle: rgba(255, 133, 89, 0.08);
+            --error: #E65447;
+            --success: #4ADE80;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--light);
+            background-image: radial-gradient(var(--subtle) 1px, transparent 1px);
+            background-size: 20px 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 45px rgba(255, 133, 89, 0.15), 
+                        0 8px 20px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            width: 380px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background-color: var(--subtle);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--subtle);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+            font-size: 20px;
+            margin: 0 5px;
+            display: inline-block;
+        }
+        
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--dark);
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .input-container {
+            position: relative;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 14px 14px 40px;
+            border: 2px solid var(--neutral);
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--neutral);
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 133, 89, 0.2);
+        }
+        
+        .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+            box-shadow: 0 8px 20px rgba(255, 133, 89, 0.15);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 133, 89, 0.25);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .link {
+            margin-top: 25px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .link a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .link a:hover::after {
+            width: 100%;
+        }
+        
+        .error-message {
+            background-color: rgba(230, 84, 71, 0.1);
+            border-left: 3px solid var(--error);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 14px;
+            color: var(--error);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .decoration {
+            position: absolute;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='40' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='30' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='20' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='10' fill='rgba(255, 133, 89, 0.1)'/%3E%3C/svg%3E");
+            background-size: contain;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .decoration:nth-child(1) { top: 15%; left: 5%; width: 80px; height: 80px; animation: float 4s linear infinite; }
+        .decoration:nth-child(2) { top: 25%; right: 10%; width: 60px; height: 60px; animation: float 6s linear infinite 1s; }
+        .decoration:nth-child(3) { bottom: 15%; left: 15%; width: 70px; height: 70px; animation: float 5s linear infinite 2s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* Password strength indicator styles */
+        .password-strength {
+            height: 5px;
+            background-color: var(--neutral);
+            border-radius: 5px;
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            background-color: var(--error);
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .password-strength-bar.weak {
+            width: 33%;
+            background-color: var(--error);
+        }
+        
+        .password-strength-bar.medium {
+            width: 66%;
+            background-color: var(--primary);
+        }
+        
+        .password-strength-bar.strong {
+            width: 100%;
+            background-color: var(--success);
+        }
+        
+        .password-match {
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+        
+        .password-match.match {
+            color: var(--success);
+            display: block;
+        }
+        
+        .password-match.no-match {
+            color: var(--error);
+            display: block;
+        }
+        
+        /* Handle Django form errors */
+        .errorlist {
+            list-style-type: none;
+            padding: 0;
+            margin: 5px 0;
+            color: var(--error);
+            font-size: 12px;
+        }
+        
+        /* Style password help text */
+        .form-text {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        .form-text ul {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+        
+        .form-text li {
+            margin-bottom: 4px;
+            position: relative;
+        }
+        
+        .form-text li::before {
+            content: '•';
+            position: absolute;
+            left: -15px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        
+        <div class="logo">
+            <i class="fas fa-check-circle logo-icon"></i>
+            DoIt
+        </div>
+        <h1>Create an Account</h1>
+        
+        <form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+            <div class="error-message">
+                <p><i class="fas fa-exclamation-circle"></i> Please correct the errors below.</p>
+            </div>
+            {% endif %}
+            
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                <div class="input-container">
+                    <i class="fas fa-user icon"></i>
+                    {{ form.username }}
+                </div>
+                {% if form.username.errors %}
+                <ul class="errorlist">
+                    {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                <div class="input-container">
+                    <i class="fas fa-lock icon"></i>
+                    {{ form.password1 }}
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar"></div>
+                </div>
+                {% if form.password1.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password1.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                <div class="input-container">
+                    <i class="fas fa-check-circle icon"></i>
+                    {{ form.password2 }}
+                </div>
+                <div class="password-match"></div>
+                {% if form.password2.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password2.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn"><span>Sign Up</span></button>
+        </form>
+        
+        <div class="link">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Simple animation when focusing on input fields
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                const label = this.closest('.form-group')?.querySelector('label');
+                if (label) label.style.color = '#FF8559';
+            });
+            
+            input.addEventListener('blur', function() {
+                const label = this.closest('.form-group')?.querySelector('label');
+                if (label) label.style.color = '#2D3748';
+            });
+        });
+        
+        // Get password elements
+        const password1Input = document.querySelector('input[name="password1"]');
+        const password2Input = document.querySelector('input[name="password2"]');
+        const strengthBar = document.querySelector('.password-strength-bar');
+        const matchIndicator = document.querySelector('.password-match');
+        
+        // Password strength indicator
+        if (password1Input && strengthBar) {
+            password1Input.addEventListener('input', function() {
+                const password = this.value;
+                let strength = 0;
+                
+                if (password.length >= 8) strength += 1;
+                if (password.match(/[A-Z]/)) strength += 1;
+                if (password.match(/[0-9]/)) strength += 1;
+                if (password.match(/[^A-Za-z0-9]/)) strength += 1;
+                
+                strengthBar.className = 'password-strength-bar';
+                
+                if (password.length === 0) {
+                    strengthBar.style.width = '0';
+                } else if (strength < 2) {
+                    strengthBar.classList.add('weak');
+                } else if (strength < 4) {
+                    strengthBar.classList.add('medium');
+                } else {
+                    strengthBar.classList.add('strong');
+                }
+            });
+        }
+        
+        // Password match indicator
+        if (password2Input && password1Input && matchIndicator) {
+            password2Input.addEventListener('input', checkPasswordMatch);
+            password1Input.addEventListener('input', checkPasswordMatch);
+        }
+        
+        function checkPasswordMatch() {
+            if (!password1Input || !password2Input || !matchIndicator) return;
+            
+            const password1 = password1Input.value;
+            const password2 = password2Input.value;
+            
+            matchIndicator.className = 'password-match';
+            
+            if (password2.length === 0) {
+                matchIndicator.style.display = 'none';
+            } else if (password1 === password2) {
+                matchIndicator.classList.add('match');
+                matchIndicator.innerHTML = '<i class="fas fa-check"></i> Passwords match';
+            } else {
+                matchIndicator.classList.add('no-match');
+                matchIndicator.innerHTML = '<i class="fas fa-times"></i> Passwords do not match';
+            }
+        }
+    </script>
+</body>
+</html>

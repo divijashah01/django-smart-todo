@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - DoIt</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Matching the DoIt color palette */
+            --primary: #FF8559;     /* Coral color */
+            --primary-light: #FFB578; /* Peach color */
+            --secondary: #E65447;   /* Red color */
+            --accent: #CF5376;      /* Pink/Purple color */
+            --dark: #2D3748;
+            --light: #FFFDFA;
+            --neutral: #FFF6F0;
+            --subtle: rgba(255, 133, 89, 0.08);
+            --error: #E65447;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--light);
+            background-image: radial-gradient(var(--subtle) 1px, transparent 1px);
+            background-size: 20px 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 45px rgba(255, 133, 89, 0.15), 
+                        0 8px 20px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            width: 380px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background-color: var(--subtle);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--subtle);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+            font-size: 20px;
+            margin: 0 5px;
+            display: inline-block;
+        }
+        
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--dark);
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .input-container {
+            position: relative;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 14px 14px 40px;
+            border: 2px solid var(--neutral);
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--neutral);
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 133, 89, 0.2);
+        }
+        
+        .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Space Grotesk', sans-serif;
+            box-shadow: 0 8px 20px rgba(255, 133, 89, 0.15);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 133, 89, 0.25);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .link {
+            margin-top: 25px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .link a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .link a:hover::after {
+            width: 100%;
+        }
+        
+        .error-message {
+            background-color: rgba(230, 84, 71, 0.1);
+            border-left: 3px solid var(--error);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 14px;
+            color: var(--error);
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .decoration {
+            position: absolute;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='50' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='40' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='30' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='20' fill='rgba(255, 133, 89, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='10' fill='rgba(255, 133, 89, 0.1)'/%3E%3C/svg%3E");
+            background-size: contain;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .decoration:nth-child(1) { top: 15%; left: 5%; width: 80px; height: 80px; animation: float 4s linear infinite; }
+        .decoration:nth-child(2) { top: 25%; right: 10%; width: 60px; height: 60px; animation: float 6s linear infinite 1s; }
+        .decoration:nth-child(3) { bottom: 15%; left: 15%; width: 70px; height: 70px; animation: float 5s linear infinite 2s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        <div class="decoration"></div>
+        
+        <div class="logo">
+            <i class="fas fa-check-circle logo-icon"></i>
+            DoIt
+        </div>
+        <h1>Welcome Back!</h1>
+        
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="error-message">
+                <p><i class="fas fa-exclamation-circle"></i> Your username and password didn't match. Please try again.</p>
+            </div>
+            {% endif %}
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-container">
+                    <i class="fas fa-user icon"></i>
+                    <input type="text" id="username" name="username" autocomplete="username" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-container">
+                    <i class="fas fa-lock icon"></i>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn"><span>Login</span></button>
+        </form>
+        
+        <div class="link">
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Simple animation when focusing on input fields
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.parentElement.querySelector('label').style.color = '#FF8559';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.parentElement.querySelector('label').style.color = '#2D3748';
+            });
+        });
+    </script>
+</body>
+</html>
